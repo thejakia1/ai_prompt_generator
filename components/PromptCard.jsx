@@ -8,6 +8,12 @@ import { usePathname, useRouter } from "next/navigation";
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const [copied, setCopied] = useState("");
 
+  const handleCopy = () => {
+    setCopied(post.prompt);
+    navigator.clipboard.writeText(post.prompt);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
@@ -18,7 +24,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             width={40}
             height={40}
             className="rounded-full object-contain"
-          />
+          /> 
 
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-gray-900">
@@ -29,7 +35,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             </p>
           </div>
         </div>
-        <div className="copy_btn0" onClick={() => {}}>
+        <div className="copy_btn0 cursor-pointer" onClick={handleCopy}>
           <Image
             src={
               copied === post.prompt
